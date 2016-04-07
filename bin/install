@@ -30,6 +30,9 @@ install_postgres() {
     ./configure $configure_options || exit 1
     make || exit 1
     make install || exit 1
+    cd contrib || exit 1
+    make || exit 1
+    make install || exit 1
     mkdir $install_path/data || exit 1
     $install_path/bin/initdb -D $install_path/data || exit 1
   )
