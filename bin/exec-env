@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ "$PGDATA" = "" ]; then
+  export PGDATA="$ASDF_INSTALL_PATH/data"
+else
+  export PGDATA="$PGDATA"
+fi
