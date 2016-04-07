@@ -17,7 +17,7 @@ _This requires [brew](http://brew.sh) if you're on a mac, or a debian flavored l
 ## Install
 
 ```
-asdf plugin-add postgresql https://github.com/smashedtoatoms/asdf-postgres.git
+asdf plugin-add postgres https://github.com/smashedtoatoms/asdf-postgres.git
 ```
 
 ## Use
