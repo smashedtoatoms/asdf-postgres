@@ -5,3 +5,4 @@ before_script:
   - . asdf/asdf.sh
 os:
   - linux
+  - osx
