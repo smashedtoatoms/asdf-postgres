@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-versions_list=$(curl -s https://ftp.postgresql.org/pub/source/ | grep -Eoh '>v\d+\.\d+\.\d+<' | sed -e 's/[<>v]//g' | sort -ur)
+versions_list=$(curl -s https://ftp.postgresql.org/pub/source/ | grep -Eoh '>v\d+\.\d+\.\d+<' | sed -e 's/[<>v]//g')
 
 versions=""
 
