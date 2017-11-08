@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-versions_list=$(curl -s https://ftp.postgresql.org/pub/source/ | grep -Eoh '>v[0-9]+\.[0-9]+(\.[0-9]+)?<' | sed -e 's/[<>v]//g')
+# version sorting recklessly lifted from StackOverflow
+# https://stackoverflow.com/a/21395280/2216771
+
+versions_list=$(
+  curl -s https://ftp.postgresql.org/pub/source/ |
+  grep -Eoh '>v[0-9]+\.[0-9]+(\.[0-9]+)?<' | # Find version numbers
+  sed -e 's/[<>v]//g' |                      # Remove the leading v
+  sed -e 's/^[0-9]\./0&/; s/\.\([0-9]\)$/.0\1/; s/\.\([0-9]\)\./.0\1./g; s/\.\([0-9]\)\./.0\1./g' | # Pad each number with leading 0
+  sort |                    # Sort the list
+  sed 's/^0// ; s/\.0/./g') # Remove the padded leading 0
 
 versions=""
 
@@ -9,4 +18,4 @@ do
   versions="${versions} ${version}"
 done
 
-echo $versions
+echo "$versions"
