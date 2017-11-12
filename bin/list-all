@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-# version sorting recklessly lifted from StackOverflow
-# https://stackoverflow.com/a/21395280/2216771
-
 versions_list=$(
   curl -s https://ftp.postgresql.org/pub/source/ |
   grep -Eoh '>v[0-9]+\.[0-9]+(\.[0-9]+)?<'       | # Find version numbers
   sed -e 's/[<>v]//g'                            | # Remove the leading v
-  sort -t '.' -k 1,1n -k 2,2n -k 3,3n )            # Sort by version number
+  sort -t '.' -k 1n -k 2n -k 3n )                  # Sort by version number
 
 versions=""
 
