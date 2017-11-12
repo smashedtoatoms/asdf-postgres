@@ -5,11 +5,9 @@
 
 versions_list=$(
   curl -s https://ftp.postgresql.org/pub/source/ |
-  grep -Eoh '>v[0-9]+\.[0-9]+(\.[0-9]+)?<' | # Find version numbers
-  sed -e 's/[<>v]//g' |                      # Remove the leading v
-  sed -e 's/^[0-9]\./0&/; s/\.\([0-9]\)$/.0\1/; s/\.\([0-9]\)\./.0\1./g; s/\.\([0-9]\)\./.0\1./g' | # Pad each number with leading 0
-  sort |                    # Sort the list
-  sed 's/^0// ; s/\.0/./g') # Remove the padded leading 0
+  grep -Eoh '>v[0-9]+\.[0-9]+(\.[0-9]+)?<'       | # Find version numbers
+  sed -e 's/[<>v]//g'                            | # Remove the leading v
+  sort -t '.' -k 1,1n -k 2,2n -k 3,3n )            # Sort by version number
 
 versions=""
 
