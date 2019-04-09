@@ -29,6 +29,8 @@ When installing Postgres using `asdf install`, you can pass custom configure opt
 * `POSTGRES_CONFIGURE_OPTIONS` - use only your configure options
 * `POSTGRES_EXTRA_CONFIGURE_OPTIONS` - append these configure options along with ones that this plugin already uses
 
+These options can be passed at runtime, or set in `~/.asdf-postgres-configure-options`. This file will be sourced at `asdf install` time if it exists.
+
 # How to use (easier version)
 ## Install
 1. Create your .tool-versions file in the project that needs postgres and add `postgres 9.4.7` or whatever version that you want.
