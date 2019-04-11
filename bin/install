@@ -40,6 +40,8 @@ install_postgres() {
 
 
 construct_configure_options() {
+  load_configure_options
+
   if [ "$POSTGRES_CONFIGURE_OPTIONS" = "" ]; then
     local configure_options="$(os_based_configure_options) --prefix=$install_path"
 
@@ -51,6 +53,19 @@ construct_configure_options() {
   fi
 
   echo "$configure_options"
+}
+
+
+load_configure_options() {
+  local asdf_postgres_configure_options="${HOME}/.asdf-postgres-configure-options"
+
+  if [[ ! -r "$asdf_postgres_configure_options" ]]; then
+    return
+  fi
+
+  set -a
+  source "$asdf_postgres_configure_options"
+  set +a
 }
 
 
