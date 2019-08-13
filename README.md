@@ -13,6 +13,9 @@ _This requires [brew](http://brew.sh) if you're on a mac, or a debian flavored l
     1. ```sudo apt-get install linux-headers-$(uname -r) build-essential```
 1. On Ubuntu, you will need libreadline
   1. ```sudo apt-get install libreadline-dev```
+1. On Ubuntu 19.04, you will need curl and zlib
+  1. ```sudo apt-get install zlib1g-dev curl```
+
 
 ## Install
 
