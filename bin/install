@@ -22,9 +22,6 @@ install_postgres() {
     cd $(untar_path $install_type $version $tmp_download_dir)
 
     local configure_options="$(construct_configure_options)"
-    # set in os_based_configure_options
-    # we unset it here because echo-ing changes the return value of the function
-    unset ASDF_PKG_MISSING
 
     echo "Building with options: $configure_options"
     ./configure $configure_options || exit 1
@@ -43,7 +40,7 @@ construct_configure_options() {
   load_configure_options
 
   if [ "$POSTGRES_CONFIGURE_OPTIONS" = "" ]; then
-    local configure_options="$(os_based_configure_options) --prefix=$install_path"
+    local configure_options="--prefix=$install_path"
 
     if [ "$POSTGRES_EXTRA_CONFIGURE_OPTIONS" != "" ]; then
       configure_options="$configure_options $POSTGRES_EXTRA_CONFIGURE_OPTIONS"
@@ -66,39 +63,6 @@ load_configure_options() {
   set -a
   source "$asdf_postgres_configure_options"
   set +a
-}
-
-
-homebrew_package_path() {
-  local package_name=$1
-
-  if [ "$(brew ls --versions $package_name)" = "" ]; then
-    echo ""
-  else
-    echo "$(brew --prefix $package_name)"
-  fi
-}
-
-
-exit_if_homebrew_not_installed() {
-  if [ "$(brew --version 2>/dev/null)" = "" ]; then
-    echo "ERROR: Please install homebrew for OSX"
-    exit 1
-  fi
-}
-
-
-os_based_configure_options() {
-  local operating_system=$(uname -a)
-  local configure_options=""
-
-  if [[ "$operating_system" =~ "Darwin" ]]; then
-    exit_if_homebrew_not_installed
-  else
-    configure_options=""
-  fi
-  
-  echo $configure_options
 }
 
 
