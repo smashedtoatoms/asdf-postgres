@@ -3,7 +3,7 @@
 Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Dependencies
-_This requires [brew](http://brew.sh) if you're on a mac, or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._  
+_This assumes macOS or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._  
 
 1. You will need a compiler.
   * Mac
