@@ -3,13 +3,13 @@
 Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Dependencies
-_This assumes macOS or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._  
+_This assumes macOS or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._
 
 1. You will need a compiler.
   * Mac
     1. ```gcc```
     1. Hit the ok button and it will install.  If it already has it, then you are good.
-  * Ubuntu  
+  * Ubuntu
     1. ```sudo apt install linux-headers-$(uname -r) build-essential```
 1. On Ubuntu, you will need libreadline
   1. ```sudo apt-get install libreadline-dev```
@@ -32,6 +32,8 @@ When installing Postgres using `asdf install`, you can pass custom configure opt
 * `POSTGRES_EXTRA_CONFIGURE_OPTIONS` - append these configure options along with ones that this plugin already uses
 
 These options can be passed at runtime, or set in `~/.asdf-postgres-configure-options`. This file will be sourced at `asdf install` time if it exists.
+
+For example, if you want to compile with a specific set of openssl libraries, you might do something like `POSTGRES_EXTRA_CONFIGURE_OPTIONS="--with-uuid=e2fs --with-openssl --with-libraries=/usr/local/lib:/usr/local/opt/openssl@1.1/lib --with-includes=/usr/local/include:/usr/local/opt/openssl@1.1/include" asdf install postgres`
 
 # How to use (easier version)
 ## Install
