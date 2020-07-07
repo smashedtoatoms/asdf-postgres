@@ -3,18 +3,23 @@
 Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Dependencies
+
 _This assumes macOS or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._
 
+### Mac
+
 1. You will need a compiler.
-  * Mac
-    1. ```gcc```
-    1. Hit the ok button and it will install.  If it already has it, then you are good.
-  * Ubuntu
-    1. ```sudo apt install linux-headers-$(uname -r) build-essential```
-1. On Ubuntu, you will need libreadline
-  1. ```sudo apt-get install libreadline-dev```
-1. On Ubuntu 19.04, you will need curl and zlib
-  1. ```sudo apt-get install zlib1g-dev curl```
+    * ```gcc```
+    * Hit the ok button and it will install.  If it already has it, then you are good.
+
+### Ubuntu
+
+1. You will need a comppiler.
+    * ```sudo apt install linux-headers-$(uname -r) build-essential```
+1. You will need libreadline
+    * ```sudo apt-get install libreadline-dev```
+1. On Ubuntu 19.04+, you will need curl and zlib
+    * ```sudo apt-get install zlib1g-dev curl```
 
 ## Install
 
