@@ -40,7 +40,7 @@ construct_configure_options() {
   load_configure_options
 
   if [ "$POSTGRES_CONFIGURE_OPTIONS" = "" ]; then
-    local configure_options="--prefix=$install_path"
+    local configure_options="--prefix=$install_path --with-openssl"
 
     if [ "$POSTGRES_EXTRA_CONFIGURE_OPTIONS" != "" ]; then
       configure_options="$configure_options $POSTGRES_EXTRA_CONFIGURE_OPTIONS"
