@@ -1,4 +1,4 @@
-# asdf-postgres
+# asdf-postgres ![Build](https://github.com/smashedtoatoms/asdf-postgres/workflows/Build/badge.svg?branch=master)
 
 Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
