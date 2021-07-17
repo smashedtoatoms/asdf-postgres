@@ -21,6 +21,13 @@ _This assumes macOS or a debian flavored linux.  If you need it to work on somet
 1. On Ubuntu 19.04+, you will need curl and zlib
     * ```sudo apt-get install zlib1g-dev curl```
 
+### (open)SUSE
+
+1. You will need a compiler (and general build tools).
+   * ```sudo zypper install -t pattern devel_basis```
+2. You will need readline.
+   * ```sudo zypper in readline-devel```
+
 ## Install
 
 ```
