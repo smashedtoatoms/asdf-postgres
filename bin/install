@@ -37,7 +37,6 @@ install_postgres() {
   )
 }
 
-
 prepare() {
   local version=$1
   local minor=${version%.*}
@@ -60,12 +59,16 @@ prepare() {
   fi
 }
 
-
 construct_configure_options() {
   load_configure_options
 
   if [ "$POSTGRES_CONFIGURE_OPTIONS" = "" ]; then
-    local configure_options="--prefix=$install_path"
+    local configure_options="--prefix=$install_path \
+    --with-uuid=e2fs \
+    --with-openssl \
+    --with-zlib \
+    --with-libraries=/opt/local/lib:/sw/lib:/usr/local/opt/openssl/lib:/opt/homebrew/opt/openssl/lib:/usr/local/lib:/usr/lib \
+    --with-includes=/opt/local/lib:/sw/lib:/usr/local/opt/openssl/include:/opt/homebrew/opt/openssl/include:/opt/homebrew/include:/usr/local/include:/usr/local/lib:/usr/lib"
 
     if [ "$POSTGRES_EXTRA_CONFIGURE_OPTIONS" != "" ]; then
       configure_options="$configure_options $POSTGRES_EXTRA_CONFIGURE_OPTIONS"
@@ -76,7 +79,6 @@ construct_configure_options() {
 
   echo "$configure_options"
 }
-
 
 load_configure_options() {
   local asdf_postgres_configure_options="${HOME}/.asdf-postgres-configure-options"
@@ -90,20 +92,17 @@ load_configure_options() {
   set +a
 }
 
-
 untar_path() {
   local install_type=$1
   local version=$2
   local tmp_download_dir=$3
 
-  if [ "$install_type" = "version" ]
-  then
+  if [ "$install_type" = "version" ]; then
     echo "$tmp_download_dir/postgresql-${version}"
   else
     echo "$tmp_download_dir/postgresql-${version}"
   fi
 }
-
 
 download_source() {
   local install_type=$1
@@ -114,7 +113,6 @@ download_source() {
   curl -Lo $download_path -C - $download_url
 }
 
-
 get_download_file_path() {
   local install_type=$1
   local version=$2
@@ -124,12 +122,10 @@ get_download_file_path() {
   echo "$tmp_download_dir/$pkg_name"
 }
 
-
 get_download_url() {
   local install_type=$1
   local version=$2
   echo "https://ftp.postgresql.org/pub/source/v${version}/postgresql-${version}.tar.gz"
 }
-
 
 install_postgres $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH

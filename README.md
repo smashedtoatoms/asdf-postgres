@@ -4,29 +4,32 @@ Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 
 ## Dependencies
 
-_This assumes macOS or a debian flavored linux.  If you need it to work on something else, you'll likely need to modify the plugin._
+- openssl
+- libreadline
+- zlib
+- curl
+
+_This assumes macOS, a Debian-flavored linux, or a SUSE-flavored linux.
+If you need it to work on something else, you may need to modify the
+plugin.  You'll need the dependencies referenced in the list above
+installed via whatever method you prefer.  There are some suggestions
+below._
 
 ### Mac
-
-1. You will need a compiler.
-    * ```gcc```
-    * Hit the ok button and it will install.  If it already has it, then you are good.
+```sh
+brew install gcc readline zlib curl
+```
 
 ### Ubuntu
-
-1. You will need a comppiler.
-    * ```sudo apt install linux-headers-$(uname -r) build-essential```
-1. You will need libreadline
-    * ```sudo apt-get install libreadline-dev```
-1. On Ubuntu 19.04+, you will need curl and zlib
-    * ```sudo apt-get install zlib1g-dev curl```
+```sh
+sudo apt-get install linux-headers-$(uname -r) build-essential openssl-dev libreadline-dev zlib1g-dev libcurl-dev
+```
 
 ### (open)SUSE
-
-1. You will need a compiler (and general build tools).
-   * ```sudo zypper install -t pattern devel_basis```
-2. You will need readline.
-   * ```sudo zypper in readline-devel```
+```
+sudo zypper install -t pattern devel_basis
+sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel
+```
 
 ## Install
 
@@ -41,7 +44,7 @@ Check [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to 
 When installing Postgres using `asdf install`, you can pass custom configure options with the following env vars:
 
 * `POSTGRES_CONFIGURE_OPTIONS` - use only your configure options
-* `POSTGRES_EXTRA_CONFIGURE_OPTIONS` - append these configure options along with ones that this plugin already uses
+* `POSTGRES_EXTRA_CONFIGURE_OPTIONS` - append these configure options along with ones that this plugin already uses (curl, openssl, readline, zlib, uuid)
 
 These options can be passed at runtime, or set in `~/.asdf-postgres-configure-options`. This file will be sourced at `asdf install` time if it exists.
 
