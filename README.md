@@ -8,6 +8,7 @@ Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 - libreadline
 - zlib
 - curl
+- uuid
 
 _This assumes macOS, a Debian-flavored linux, or a SUSE-flavored linux.
 If you need it to work on something else, you may need to modify the
