@@ -17,18 +17,18 @@ below._
 
 ### Mac
 ```sh
-brew install gcc readline zlib curl
+brew install gcc readline zlib curl ossp-uuid
 ```
 
 ### Ubuntu
 ```sh
-sudo apt-get install linux-headers-$(uname -r) build-essential openssl-dev libreadline-dev zlib1g-dev libcurl-dev
+sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev
 ```
 
 ### (open)SUSE
 ```
 sudo zypper install -t pattern devel_basis
-sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel
+sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel
 ```
 
 ## Install
