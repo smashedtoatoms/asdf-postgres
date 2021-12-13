@@ -67,8 +67,7 @@ construct_configure_options() {
     --with-uuid=e2fs \
     --with-openssl \
     --with-zlib \
-    --with-libraries=/opt/local/lib:/sw/lib:/usr/local/opt/openssl/lib:/opt/homebrew/opt/openssl/lib:/usr/local/lib:/usr/lib \
-    --with-includes=/opt/local/lib:/sw/lib:/usr/local/opt/openssl/include:/opt/homebrew/opt/openssl/include:/opt/homebrew/include:/usr/local/include:/usr/local/lib:/usr/lib"
+    $(lib_include_paths)"
 
     if [ "$POSTGRES_EXTRA_CONFIGURE_OPTIONS" != "" ]; then
       configure_options="$configure_options $POSTGRES_EXTRA_CONFIGURE_OPTIONS"
@@ -90,6 +89,25 @@ load_configure_options() {
   set -a
   source "$asdf_postgres_configure_options"
   set +a
+}
+
+lib_include_paths() {
+  if [ -d "$HOMEBREW_PREFIX/opt" ]; then
+    local homebrew_lib_path
+    local homebrew_include_path
+    homebrew_lib_path="$HOMEBREW_PREFIX/opt/openssl/lib"
+    homebrew_include_path="$HOMEBREW_PREFIX/opt/openssl/include:/opt/homebrew/include"
+
+    while read -r dir ; do
+      homebrew_lib_path="$homebrew_lib_path:$dir/lib"
+      homebrew_include_path="$homebrew_include_path:$dir/include"
+    done <<<"$(ls -d $HOMEBREW_PREFIX/opt/openssl@* | sort -rV)"
+
+    homebrew_lib_path="$homebrew_lib_path:$HOMEBREW_PREFIX/openssl/lib:$HOMEBREW_PREFIX/libressl/lib:$HOMEBREW_PREFIX/lib:"
+    homebrew_include_path="$homebrew_include_path:$HOMEBREW_PREFIX/openssl/include:$HOMEBREW_PREFIX/libressl/include:$HOMEBREW_PREFIX/include:"
+  fi
+  echo "--with-libraries='/opt/local/lib:/sw/lib:/usr/local/opt/openssl/lib:$homebrew_lib_path/usr/local/lib:/usr/lib' \
+    --with-includes='/opt/local/lib:/sw/lib:/usr/local/opt/openssl/include:$homebrew_include_path/usr/local/include:/usr/local/lib:/usr/lib'"
 }
 
 untar_path() {
