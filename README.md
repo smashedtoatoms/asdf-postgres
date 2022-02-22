@@ -26,6 +26,12 @@ brew install gcc readline zlib curl ossp-uuid
 sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev
 ```
 
+### Fedora
+```sh
+sudo dnf install openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel
+```
+
+
 ### (open)SUSE
 ```
 sudo zypper install -t pattern devel_basis
