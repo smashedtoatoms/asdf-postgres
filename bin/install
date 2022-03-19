@@ -33,7 +33,7 @@ install_postgres() {
     make || exit 1
     make install || exit 1
     mkdir $install_path/data || exit 1
-    $install_path/bin/initdb -D $install_path/data || exit 1
+    $install_path/bin/initdb -D $install_path/data -U postgres || exit 1
   )
 }
 
