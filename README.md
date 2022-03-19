@@ -28,7 +28,7 @@ sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev librea
 
 ### Fedora
 ```sh
-sudo dnf install openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel
+sudo dnf install openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel libuuid-devel
 ```
 
 
