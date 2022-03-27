@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+PGDATA=${PGDATA:-}
+PGHOST=${PGHOST:-}
+PGPORT=${PGPORT:-}
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-}
+
 if [ "$PGDATA" = "" ]; then
   export PGDATA="$ASDF_INSTALL_PATH/data"
 else
