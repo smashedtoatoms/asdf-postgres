@@ -72,6 +72,8 @@ These options can be passed at runtime, or set in `~/.asdf-postgres-configure-op
 
 For example, if you want to compile with a specific set of openssl libraries, you might do something like `POSTGRES_EXTRA_CONFIGURE_OPTIONS="--with-uuid=e2fs --with-openssl --with-libraries=/usr/local/lib:/usr/local/opt/openssl@1.1/lib --with-includes=/usr/local/include:/usr/local/opt/openssl@1.1/include" asdf install postgres`
 
+The option `POSTGRES_SKIP_INITDB` can be used to skip `initdb` command which is not allowed to run from `root` account.
+
 # How to use (easier version)
 
 ## Install
