@@ -9,6 +9,7 @@ Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 - zlib
 - curl
 - uuid
+- icu-devtools (linux)
 
 _This assumes macOS, a Debian-flavored linux, or a SUSE-flavored linux.  If you
 need it to work on something else, you may need to modify the plugin. You'll
@@ -31,7 +32,8 @@ into your `~/.zshrc` file `export HOMEBREW_PREFIX=/usr/local`.
 ### Ubuntu
 
 ```sh
-sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev
+sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev
+libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools
 ```
 
 ### Ubuntu (WSL)
