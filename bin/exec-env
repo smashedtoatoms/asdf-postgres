@@ -16,15 +16,3 @@ if [ "$LD_LIBRARY_PATH" = "" ]; then
 else
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 fi
-
-if [ "$PGHOST" = "" ]; then
-  export PGHOST="localhost"
-else
-  export PGHOST="$PGHOST"
-fi
-
-if [ "$PGPORT" = "" ]; then
-  export PGPORT="5432"
-else
-  export PGPORT="$PGPORT"
-fi
