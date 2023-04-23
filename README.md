@@ -52,7 +52,7 @@ sudo dnf install openssl-devel readline-devel zlib-devel libcurl-devel uuid-deve
 
 ```
 sudo zypper install -t pattern devel_basis
-sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel
+sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel libuuid-devel
 ```
 
 ## Install
