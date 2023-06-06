@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+download_source() {
+  local install_type=$1
+  local version=$2
+  local release_file=$3
+  local download_url
+  download_url=$(get_download_url "$install_type" "$version")
+
+  curl -Lo "$release_file" -C - "$download_url"
+}
+
+get_download_file_path() {
+  local install_type=$1
+  local version=$2
+  local download_path=$3
+  local pkg_name="$download_path/postgresql-${version}.tar.gz"
+
+  echo "$pkg_name"
+}
+
+get_download_url() {
+  local install_type=$1
+  local version=$2
+  echo "https://ftp.postgresql.org/pub/source/v${version}/postgresql-${version}.tar.gz"
+}
+
+mkdir -p "$ASDF_DOWNLOAD_PATH"
+
+release_file=$(get_download_file_path "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_DOWNLOAD_PATH")
+
+# Download tar.gz file to the download directory
+download_source "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$release_file"
+
+# Extract contents of tar.gz file into the download directory
+tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" --strip-components=1 || fail "Could not extract $release_file"
+
+# Remove the tar.gz file since we don't need to keep it
+rm "$release_file"
