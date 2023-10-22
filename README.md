@@ -33,13 +33,14 @@ into your `~/.zshrc` file `export HOMEBREW_PREFIX=/usr/local`.
 
 ```sh
 sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev
-libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools
+libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
 ### Ubuntu (WSL)
 
 ```sh
-sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev
+sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev
+libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
 ### Fedora
