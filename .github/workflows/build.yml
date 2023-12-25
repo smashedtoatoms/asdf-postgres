@@ -10,14 +10,21 @@ on:
     - cron: "0 0 * * *" # daily at midnight
 
 jobs:
-  plugin_test:
-    name: asdf plugin test
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+  plugin_test_ubuntu:
+    name: asdf plugin test (ubuntu)
+    runs-on: ubuntu-latest
     steps:
-      - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v1
+      - name: asdf_plugin_test_ubuntu
+        uses: asdf-vm/actions/plugin-test@v3
+        with:
+          command: postgres --version
+  plugin_test_macos:
+    name: asdf plugin test (macos)
+    runs-on: macos-latest
+    steps:
+      - name: asdf_plugin_test_macos
+        uses: asdf-vm/actions/plugin-test@v3
+        env:
+          PKG_CONFIG_PATH: "/usr/local/opt/icu4c/lib/pkgconfig"
         with:
           command: postgres --version
