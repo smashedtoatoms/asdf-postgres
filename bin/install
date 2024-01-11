@@ -5,6 +5,8 @@ install_postgres() {
   local version=$2
   local install_path=$3
 
+  local configure_options
+
   # running this in a subshell
   # because we don't want to disturb current working dir
   (
@@ -12,7 +14,7 @@ install_postgres() {
 
     prepare $version
 
-    local configure_options=$(construct_configure_options)
+    configure_options="$(construct_configure_options)" || exit 1
 
     echo "Building with options: $configure_options"
     ./configure $configure_options || exit 1
@@ -53,12 +55,14 @@ prepare() {
 construct_configure_options() {
   load_configure_options
 
+  local configure_options
+
   if [ "$POSTGRES_CONFIGURE_OPTIONS" = "" ]; then
-    local configure_options="--prefix=$install_path \
+    configure_options="--prefix=$install_path \
     --with-uuid=e2fs \
     --with-openssl \
     --with-zlib \
-    $(lib_include_paths)"
+    $(lib_include_paths)" || return 1
 
     if [ "$POSTGRES_EXTRA_CONFIGURE_OPTIONS" != "" ]; then
       configure_options="$configure_options $POSTGRES_EXTRA_CONFIGURE_OPTIONS"
@@ -84,44 +88,75 @@ load_configure_options() {
 
 lib_include_paths() {
   local openssl_prefix
+  local readline_prefix
   local include_paths
   local lib_paths
+  local error
 
-    # Linux and also MacPorts
+  # Linux and also MacPorts
   openssl_prefix=$(pkg-config --variable=prefix libcrypto 2>/dev/null);
+  readline_prefix=$(pkg-config --variable=prefix readline 2>/dev/null);
 
-  # Use OpenSSL from Homebrew
+  include_paths=""
+  lib_paths=""
+
   if [[ -n $openssl_prefix ]]; then
-    include_paths="$openssl_prefix/include"
-    lib_paths="$openssl_prefix/lib"
-  else
-    # Attempt to find HOMEBREW_PREFIX if the var is not set
-    if [[ -z $HOMEBREW_PREFIX ]]; then
-      HOMEBREW_PREFIX=$(brew --prefix 2>/dev/null)
-    fi
-
-    if [[ -z $openssl_prefix && -d "$HOMEBREW_PREFIX/opt" ]]; then
-
-      export HOMEBREW_PREFIX
-      include_paths="$HOMEBREW_PREFIX/lib:"
-      lib_paths="$HOMEBREW_PREFIX/include:"
-
-      if [[ -d "$HOMEBREW_PREFIX/opt/openssl@3" ]]; then
-        openssl_prefix="$HOMEBREW_PREFIX/opt/openssl@3"
-      elif [[ -d "$HOMEBREW_PREFIX/opt/openssl" ]]; then
-        openssl_prefix="$HOMEBREW_PREFIX/opt/openssl"
-      elif [[ -d "$HOMEBREW_PREFIX/opt/libressl" ]]; then
-        openssl_prefix="$HOMEBREW_PREFIX/opt/libressl"
-      fi
-    fi
-
     include_paths="$openssl_prefix/include"
     lib_paths="$openssl_prefix/lib"
   fi
 
+  if [[ -n $readline_prefix ]]; then
+    include_paths+=":$readline_prefix/include"
+    lib_paths+=":$readline_prefix/lib"
+  fi
+
+  # Attempt to find HOMEBREW_PREFIX if the var is not set
+  if [[ -z $HOMEBREW_PREFIX ]]; then
+    HOMEBREW_PREFIX=$(brew --prefix 2>/dev/null)
+  fi
+
+  if [[ -d "$HOMEBREW_PREFIX/opt" ]]; then
+    export HOMEBREW_PREFIX
+    include_paths+=":$HOMEBREW_PREFIX/lib"
+    lib_paths+=":$HOMEBREW_PREFIX/include"
+  fi
+
+  # Use OpenSSL from Homebrew
+  if [[ -z $openssl_prefix ]]; then
+    if [[ -d "$HOMEBREW_PREFIX/opt/openssl@3" ]]; then
+      openssl_prefix="$HOMEBREW_PREFIX/opt/openssl@3"
+    elif [[ -d "$HOMEBREW_PREFIX/opt/openssl" ]]; then
+      openssl_prefix="$HOMEBREW_PREFIX/opt/openssl"
+    elif [[ -d "$HOMEBREW_PREFIX/opt/libressl" ]]; then
+      openssl_prefix="$HOMEBREW_PREFIX/opt/libressl"
+    fi
+
+    include_paths+=":$openssl_prefix/include"
+    lib_paths+=":$openssl_prefix/lib"
+  fi
+
+  # Use Readline from Homebrew
+  if [[ -z $readline_prefix ]]; then
+    if [[ -d "$HOMEBREW_PREFIX/opt/readline" ]]; then
+      readline_prefix="$HOMEBREW_PREFIX/opt/readline"
+      include_paths+=":$readline_prefix/include"
+      lib_paths+=":$readline_prefix/lib"
+    fi
+  fi
+
+  error=false
   if [[ -z $openssl_prefix ]]; then
     echo "Could not find OpenSSL!" >&2
-    exit 1
+    error=true
+  fi
+
+  if [[ -z $readline_prefix ]]; then
+    echo "Could not find Readline!" >&2
+    error=true
+  fi
+
+  if [[ $error == true ]]; then
+    return 1
   fi
 
   echo "--with-libraries=$lib_paths:/opt/local/lib:/sw/lib:/usr/local/lib:/usr/lib \
