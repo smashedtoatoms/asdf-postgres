@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+: ${ASDF_DATA_DIR:=${HOME}/.asdf}
+: ${ASDF_PLUGIN_PATH:=${ASDF_DATA_DIR}/plugins/redis}
+
 install_postgres() {
   local install_type=$1
   local version=$2
@@ -41,13 +44,13 @@ prepare() {
 
   if [ "$(uname)" == "Linux" ] && [ "$icu_version_major" -eq 68 ] && [ "$major" -ge 11 ]; then
     cd src || exit
-    git apply "${ASDF_PLUGIN_PATH:-$HOME/.asdf/plugins/postgres}/lib/icu68.patch"
+    git apply "${ASDF_PLUGIN_PATH}/lib/icu68.patch"
     cd ..
   fi
 
   if [ "$(uname)" == "Darwin" ] && [ "$minor_integer" -ge '840' ] && [ "$minor_integer" -le "930" ]; then
     cd contrib || exit
-    git apply "${ASDF_PLUGIN_PATH:-$HOME/.asdf/plugins/postgres}/lib/uuid-ossp.patch"
+    git apply "${ASDF_PLUGIN_PATH}/lib/uuid-ossp.patch"
     cd ..
   fi
 }
