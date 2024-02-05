@@ -9,7 +9,7 @@ Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 - zlib
 - curl
 - uuid
-- icu-devtools (linux)
+- icu-devtools (linux) or icu4c (MacOS)
 
 _This assumes macOS, a Debian-flavored linux, or a SUSE-flavored linux.  If you
 need it to work on something else, you may need to modify the plugin. You'll
@@ -19,7 +19,9 @@ you prefer. There are some suggestions below._
 ### Mac
 
 ```sh
-brew install gcc readline zlib curl ossp-uuid
+brew install gcc readline zlib curl ossp-uuid icu4c
+export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/pkgconfig:$(brew --prefix curl)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig"
+# then install the version you want, e.g.: asdf install postgres 16.1
 ```
 
 If you are on Apple silicon, you may need to set the HOMEBREW_PREFIX environment
