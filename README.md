@@ -19,7 +19,7 @@ you prefer. There are some suggestions below._
 ### Mac
 
 ```sh
-brew install gcc readline zlib curl ossp-uuid
+brew install gcc readline zlib curl ossp-uuid icu4c
 ```
 
 If you are on Apple silicon, you may need to set the HOMEBREW_PREFIX environment
