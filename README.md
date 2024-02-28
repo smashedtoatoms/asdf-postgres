@@ -9,7 +9,7 @@ Postgresql plugin for [asdf](https://github.com/asdf-vm/asdf) version manager
 - zlib
 - curl
 - uuid
-- icu-devtools (linux)
+- icu-devtools (linux) or icu4c (MacOS)
 
 _This assumes macOS, a Debian-flavored linux, or a SUSE-flavored linux.  If you
 need it to work on something else, you may need to modify the plugin. You'll
@@ -28,6 +28,15 @@ HOMEBREW_PREFIX=/opt/homebrew` in your `~/.zshrc` file. It isn't always
 required, but I don't know why this is required for some people.  The same goes
 for intel machines only the prefix is `/usr/local`, which can also be dropped
 into your `~/.zshrc` file `export HOMEBREW_PREFIX=/usr/local`.
+
+If you are using pkgconfig, you may run into issues with linking, particularly
+with icu4c.  Often they can be resolved by setting your PKG_CONFIG_PATH
+environment variable to reference where your linked libs live.  For example:
+
+```sh
+brew install gcc readline zlib curl ossp-uuid icu4c
+export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/pkgconfig:$(brew --prefix curl)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig"
+```
 
 ### Ubuntu
 
