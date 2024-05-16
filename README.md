@@ -41,14 +41,14 @@ export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/
 ### Ubuntu
 
 ```sh
-sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev
+sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev \
 libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
 ### Ubuntu (WSL)
 
 ```sh
-sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev
+sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev \
 libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
@@ -60,14 +60,14 @@ sudo dnf install openssl-devel readline-devel zlib-devel libcurl-devel uuid-deve
 
 ### (open)SUSE
 
-```
+```sh
 sudo zypper install -t pattern devel_basis
 sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel libuuid-devel
 ```
 
 ## Install
 
-```
+```sh
 asdf plugin-add postgres
 ```
 
