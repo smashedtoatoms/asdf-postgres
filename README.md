@@ -19,7 +19,7 @@ you prefer. There are some suggestions below._
 ### Mac
 
 ```sh
-brew install gcc readline zlib curl ossp-uuid icu4c
+brew install gcc readline zlib curl ossp-uuid icu4c pkg-config
 ```
 
 If you are on Apple silicon, you may need to set the HOMEBREW_PREFIX environment
@@ -34,7 +34,7 @@ with icu4c.  Often they can be resolved by setting your PKG_CONFIG_PATH
 environment variable to reference where your linked libs live.  For example:
 
 ```sh
-brew install gcc readline zlib curl ossp-uuid icu4c
+brew install gcc readline zlib curl ossp-uuid icu4c pkg-config
 export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/pkgconfig:$(brew --prefix curl)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig"
 ```
 

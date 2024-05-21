@@ -89,7 +89,7 @@ lib_include_paths() {
     homebrew_lib_path="$HOMEBREW_PREFIX/opt/openssl/lib"
     homebrew_include_path="$HOMEBREW_PREFIX/opt/openssl/include:/opt/homebrew/include"
 
-    while read -r dir ; do
+    while read -r dir; do
       homebrew_lib_path="$homebrew_lib_path:$dir/lib"
       homebrew_include_path="$homebrew_include_path:$dir/include"
     done <<<"$(ls -d $HOMEBREW_PREFIX/opt/openssl@* | sort -rV)"
