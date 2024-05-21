@@ -22,9 +22,11 @@ jobs:
     name: asdf plugin test (macos)
     runs-on: macos-latest
     steps:
+      - name: install dependencies
+        run: brew install icu4c
+      - name: wtf
+        run: echo $HOMEBREW_PREFIX; ls -l $HOMEBREW_PREFIX/lib; ls -l $HOMEBREW_PREFIX/include; echo "===="; ls -l $HOMEBREW_PREFIX/Cellar/icu4c
       - name: asdf_plugin_test_macos
         uses: asdf-vm/actions/plugin-test@v3
-        env:
-          PKG_CONFIG_PATH: "/usr/local/opt/icu4c/lib/pkgconfig"
         with:
           command: postgres --version
