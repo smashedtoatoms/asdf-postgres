@@ -21,10 +21,14 @@ jobs:
   plugin_test_macos:
     name: asdf plugin test (macos)
     runs-on: macos-latest
+    env:
+      POSTGRES_CONFIGURE_OPTIONS: "--without-icu"
     steps:
+      - name: add uic bin to path
+        run: echo "/opt/homebrew/opt/icu4c/bin" >> $GITHUB_PATH
+      - name: install dependencies
+        run: brew install gcc readline zlib curl ossp-uuid icu4c pkg-config
       - name: asdf_plugin_test_macos
         uses: asdf-vm/actions/plugin-test@v3
-        env:
-          PKG_CONFIG_PATH: "/usr/local/opt/icu4c/lib/pkgconfig"
         with:
           command: postgres --version
