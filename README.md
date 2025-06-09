@@ -94,7 +94,15 @@ you might do something like `POSTGRES_EXTRA_CONFIGURE_OPTIONS="--with-uuid=e2fs
 install postgres`
 
 The option `POSTGRES_SKIP_INITDB` can be used to skip `initdb` command which is
-not allowed to run from `root` account.
+not allowed to run from `root` account. `POSTGRES_SKIP_INITDB asdf install 
+postgres 17.4` for example.
+
+if you intend to use 
+[ephemeral postgres](https://github.com/smashedtoatoms/asdf-ephemeral-pg), 
+you'll want to install postgres via `POSTGRES_SKIP_INITDB asdf install postgres
+17.4` for example, and then run `pg_ctl start` and `createdb <your local 
+username>`.  That will get you very close to the default install config for 
+postgres, which will behave with ephemeral-pg
 
 # How to use (easier version)
 
