@@ -68,7 +68,7 @@ sudo zypper in openssl-devel readline-devel zlib-devel libcurl-devel uuid-devel 
 ## Install
 
 ```sh
-asdf plugin-add postgres
+asdf plugin add postgres https://github.com/smashedtoatoms/asdf-postgres.git
 ```
 
 ## ASDF options
