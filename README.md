@@ -38,17 +38,17 @@ brew install gcc readline zlib curl ossp-uuid icu4c pkg-config
 export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/pkgconfig:$(brew --prefix curl)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig"
 ```
 
-### Ubuntu
+### Debian/ Ubuntu
 
 ```sh
-sudo apt-get install linux-headers-$(uname -r) build-essential libssl-dev \
+sudo apt-get install linux-headers-$(uname -r) build-essential bison flex libssl-dev \
 libreadline-dev zlib1g-dev libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
-### Ubuntu (WSL)
+### Debian/ Ubuntu (WSL)
 
 ```sh
-sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev \
+sudo apt-get install build-essential bison flex libssl-dev libreadline-dev zlib1g-dev \
 libcurl4-openssl-dev uuid-dev icu-devtools libicu-dev
 ```
 
